@@ -7,8 +7,7 @@
   <name>Sakila parent</name>
   <description>Parent for sakila projects</description>
   <modules>
-  	
-  	<module>../sakila-business-dao</module>
-  	<module>../sakila-business-webapi</module>
+  	<module>sakila-business-dao</module>
+  	<module>sakila-business-webapi</module>
   </modules>
 </project>
