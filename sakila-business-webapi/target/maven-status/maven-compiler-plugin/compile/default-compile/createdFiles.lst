@@ -1,0 +1,7 @@
+isep/web/sakila/webapi/model/ActorWO.class
+isep/web/sakila/webapi/SakilaBusinessWebapiApplication.class
+isep/web/sakila/webapi/controller/ActorRestController.class
+isep/web/sakila/webapi/model/WebObject.class
+isep/web/sakila/webapi/service/ActorServiceImpl.class
+isep/web/sakila/webapi/service/ActorService.class
+isep/web/sakila/webapi/config/MvcConfig.class
