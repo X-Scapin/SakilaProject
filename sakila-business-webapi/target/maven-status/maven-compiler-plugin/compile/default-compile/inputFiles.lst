@@ -1,7 +1,0 @@
-/home/prossato/Programmation/Java/workspace/sakila-business-webapi/src/main/java/isep/web/sakila/webapi/config/MvcConfig.java
-/home/prossato/Programmation/Java/workspace/sakila-business-webapi/src/main/java/isep/web/sakila/webapi/controller/ActorRestController.java
-/home/prossato/Programmation/Java/workspace/sakila-business-webapi/src/main/java/isep/web/sakila/webapi/model/ActorWO.java
-/home/prossato/Programmation/Java/workspace/sakila-business-webapi/src/main/java/isep/web/sakila/webapi/model/WebObject.java
-/home/prossato/Programmation/Java/workspace/sakila-business-webapi/src/main/java/isep/web/sakila/webapi/service/ActorService.java
-/home/prossato/Programmation/Java/workspace/sakila-business-webapi/src/main/java/isep/web/sakila/webapi/SakilaBusinessWebapiApplication.java
-/home/prossato/Programmation/Java/workspace/sakila-business-webapi/src/main/java/isep/web/sakila/webapi/service/ActorServiceImpl.java
