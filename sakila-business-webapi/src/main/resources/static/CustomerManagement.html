@@ -67,7 +67,7 @@
 							<div class="col-md-7">
 								<input type="text" ng-model="ctrl.customer.firstName"
 									name="firstName" class="form-control input-sm"
-									placeholder="Enter Customer First Name. [This field is validation free]" />
+									placeholder="Enter Customer First Name. " />
 							</div>
 						</div>
 					</div>
@@ -78,7 +78,7 @@
 							<div class="col-md-7">
 								<input type="text" ng-model="ctrl.customer.email" name="email"
 									class="form-control input-sm"
-									placeholder="Enter Customer E-mail. [This field is validation free]" />
+									placeholder="Enter Customer E-mail. " />
 							</div>
 						</div>
 					</div>
@@ -90,29 +90,45 @@
 							<div class="col-md-7">
 								<input type="text" ng-model="ctrl.customer.phone" name="phone"
 									class="form-control input-sm"
-									placeholder="Enter Customer phone number. [This field is validation free]" />
+									placeholder="Enter Customer phone number. " />
 							</div>
 						</div>
 					</div>
+					
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-2 control-lable" for="file">Active Customer?</label>
+							<div class="col-md-7">
+								<label> <input type="radio"
+									ng-model="ctrl.customer.active" ng-value="1">Yes
+								</label> <label> <input type="radio"
+									ng-model="ctrl.customer.active" ng-value="0">No
+								</label>
+							</div>
+						</div>
+					</div>
+					
+						<span class="lead">Customer Address : </span> 
 
 					<div class="row">
+					<br/>
 						<div class="form-group col-md-12">
 							<label class="col-md-2 control-lable" for="file">Address</label>
 							<div class="col-md-7">
 								<input type="text" ng-model="ctrl.address.address"
 									name="address" class="form-control input-sm"
-									placeholder="Enter customer's address. [This field is validation free]" />
+									placeholder="Enter customer's address. " />
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-12">
-							<label class="col-md-2 control-lable" for="file">Address
-								2</label>
+							<label class="col-md-2 control-lable" for="file">Second Address
+								</label>
 							<div class="col-md-7">
 								<input type="text" ng-model="ctrl.address.address2"
 									name="address2" class="form-control input-sm"
-									placeholder="Enter customer's address 2. [This field is validation free]" />
+									placeholder="Enter customer's address 2. " />
 							</div>
 						</div>
 					</div>
@@ -122,25 +138,7 @@
 							<div class="col-md-7">
 								<input type="text" ng-model="ctrl.address.district"
 									name="district" class="form-control input-sm"
-									placeholder="Enter district. [This field is validation free]" />
-							</div>
-						</div>
-					</div>
-
-
-
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-2 control-lable" for="file"> Select
-							city: </label><br>
-							<select name="city_id" ng-model="ctrl.address.city_id" required>
-								<option value="">Select the city :</option>
-								<option ng-repeat="c in ctrl.citys" value="{{c.cityId}}">{{c.city}}</option>
-							</select><br />
-
-							<div class="has-error" ng-show="myForm.$dirty">
-								<span ng-show="myForm.cityId.$error.required">This is a
-									required field</span>
+									placeholder="Enter district. " />
 							</div>
 						</div>
 					</div>
@@ -152,24 +150,29 @@
 							<div class="col-md-7">
 								<input type="text" ng-model="ctrl.address.postalCode"
 									name="postalCode" class="form-control input-sm"
-									placeholder="Enter postal code. [This field is validation free]" />
+									placeholder="Enter postal code. " />
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="form-group col-md-12">
-							<label class="col-md-2 control-lable" for="file">Is the
-								customer active?</label>
+							<label class="col-md-2 control-lable" for="file"> City  </label>
 							<div class="col-md-7">
-								<label> <input type="radio"
-									ng-model="ctrl.customer.active" ng-value="1">Yes
-								</label> <label> <input type="radio"
-									ng-model="ctrl.customer.active" ng-value="0">No
-								</label>
+								<select name="city_id" ng-model="ctrl.address.city_id" required class="form-control">
+									<option value="">Select the city :</option>
+									<option ng-repeat="c in ctrl.citys" value="{{c.cityId}}">{{c.city}}</option>
+								</select><br />
+							</div>
+
+							<div class="has-error" ng-show="myForm.$dirty">
+								<span ng-show="myForm.cityId.$error.required">This is a
+									required field</span>
 							</div>
 						</div>
 					</div>
+
+					
 
 					<div class="row">
 						<div class="form-actions floatRight">

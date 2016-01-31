@@ -5,7 +5,7 @@ App.controller('CustomerController', [
 		'CustomerService',
 		'AddressService',
 		'CityService',
-		function($scope, $cookieStore, CustomerService, AddressService, CityService) {
+		function($scope, CustomerService, AddressService, CityService) {
 			var self = this;
 
 			self.address = {
