@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import isep.web.sakila.jpa.entities.Store;
 
-public interface StoreRepository extends CrudRepository<Store, Integer> {
+public interface StoreRepository extends CrudRepository<Store, Byte> {
 
 }

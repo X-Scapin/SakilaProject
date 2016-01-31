@@ -68,6 +68,7 @@ public class InventoryRestController {
 
 		currentInventory.setInventoryId(inventoryWO.getInventoryId());
 		currentInventory.setStore(inventoryWO.getStore());
+		currentInventory.setFilm(inventoryWO.getFilm());
 		inventoryService.updateInventory(currentInventory);
 
 		return new ResponseEntity<InventoryWO>(currentInventory, HttpStatus.OK);

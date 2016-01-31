@@ -12,7 +12,7 @@ App.factory('InventoryService', [
 							function(response) {
 								return response.data;
 							}, function(errResponse) {
-								console.error('Error while fetching inventorys');
+								console.error('Error while fetching inventories');
 								return $q.reject(errResponse);
 							});
 				},
