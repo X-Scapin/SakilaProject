@@ -3,9 +3,9 @@
 App.controller('CustomerController', [
 		'$scope',
 		'CustomerService',
-		'AdressService',
+		'AddressService',
 		'CityService',
-		function($scope, $cookieStore, CustomerService, AdressService, CityService) {
+		function($scope, $cookieStore, CustomerService, AddressService, CityService) {
 			var self = this;
 
 			self.address = {
@@ -57,17 +57,17 @@ App.controller('CustomerController', [
 				});
 			};
 			
-			self.createAdress = function(address) {
-				AdressService.createAdress(address).then(
+			self.createAddress = function(address) {
+				AddressService.createAddress(address).then(
 						self.fetchAllCustomers, function(errResponse) {
-							console.error('Error while creating Adress.');
+							console.error('Error while creating Address.');
 						});
 			};
 			
-			self.updateAdress = function(address) {
-				AdressService.updateAdress(address).then(
+			self.updateAddress = function(address) {
+				AddressService.updateAddress(address).then(
 						self.fetchAllCustomers, function(errResponse) {
-							console.error('Error while updating Adress.');
+							console.error('Error while updating Address.');
 						});
 			};
 
@@ -92,7 +92,6 @@ App.controller('CustomerController', [
 						});
 			};
 			
-			self.fetchAllAddress();
 			self.fetchAllCustomers();
 			self.fetchAllCitys();
 			
@@ -100,13 +99,13 @@ App.controller('CustomerController', [
 			self.submit = function() {
 				if (self.customer.customerId == null) {
 					console.log('Saving New Customer', self.customer);
-					self.createAdress(self.address);
+					self.createAddress(self.address);
 					self.createCustomer(self.customer);
 				} else {
 					console.log('Customer updating with id ',
 							self.customer.customerId);
 					console.log('Customer: ', self.customer);
-					self.updateAdress(self.address);
+					self.updateAddress(self.address);
 					self.updateCustomer(self.customer);
 				}
 				self.reset();
