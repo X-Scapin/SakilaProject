@@ -18,7 +18,7 @@ App.factory('AddressService', [
 				},
 				
 				readAddress : function(address) {
-					return $http.post('http://localhost:8080/address/', customer)
+					return $http.get('http://localhost:8080/address/', address)
 							.then(function(response) {
 								return response.data;
 							}, function(errResponse) {
@@ -28,7 +28,7 @@ App.factory('AddressService', [
 				},
 
 				createAddress : function(address) {
-					return $http.post('http://localhost:8080/addressCreate/', address)
+					return $http.post('http://localhost:8080/address/', address)
 							.then(function(response) {
 								return response.data;
 							}, function(errResponse) {
