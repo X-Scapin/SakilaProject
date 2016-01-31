@@ -25,7 +25,6 @@ App.controller('CustomerController', [
 				email : '',
 				phone : '',
 				address_id : self.address.addressId,
-				active : null
 			};
 			
 			
@@ -137,7 +136,6 @@ App.controller('CustomerController', [
 					email : '',
 					phone : '',
 					addressId : '',
-					active : null
 				};
 				self.address = {
 					address : '',
