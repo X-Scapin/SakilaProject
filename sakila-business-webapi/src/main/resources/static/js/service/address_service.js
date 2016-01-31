@@ -1,60 +1,60 @@
 'use strict';
 
-App.factory('AdressService', [
+App.factory('AddressService', [
 		'$http',
 		'$q',
 		function($http, $q) {
 
 			return {
 
-				fetchAllAdress : function() {
-					return $http.get('http://localhost:8080/adress/').then(
+				fetchAllAddress : function() {
+					return $http.get('http://localhost:8080/address/').then(
 							function(response) {
 								return response.data;
 							}, function(errResponse) {
-								console.error('Error while fetching adresss');
+								console.error('Error while fetching addresss');
 								return $q.reject(errResponse);
 							});
 				},
 				
-				readAdress : function(adress) {
-					return $http.post('http://localhost:8080/adress/', customer)
+				readAddress : function(address) {
+					return $http.post('http://localhost:8080/address/', customer)
 							.then(function(response) {
 								return response.data;
 							}, function(errResponse) {
-								console.error('Error while reading adress');
+								console.error('Error while reading address');
 								return $q.reject(errResponse);
 							});
 				},
 
-				createAdress : function(adress) {
-					return $http.post('http://localhost:8080/adressCreate/', adress)
+				createAddress : function(address) {
+					return $http.post('http://localhost:8080/addressCreate/', address)
 							.then(function(response) {
 								return response.data;
 							}, function(errResponse) {
-								console.error('Error while creating adress');
+								console.error('Error while creating address');
 								return $q.reject(errResponse);
 							});
 				},
 
-				updateAdress : function(adress, adressId) {
-					console.log("XXX", adress);
-					return $http.post('http://localhost:8080/adressUpdate/',
+				updateAddress : function(address, addressId) {
+					console.log("XXX", address);
+					return $http.post('http://localhost:8080/addressUpdate/',
 							actor).then(function(response) {
 						return response.data;
 					}, function(errResponse) {
-						console.error('Error while updating adress');
+						console.error('Error while updating address');
 						return $q.reject(errResponse);
 					});
 				},
 
-				deleteAdress : function(adressId) {
+				deleteAddress : function(addressId) {
 					return $http.get(
-							'http://localhost:8080/adressDelete/' + adressId)
+							'http://localhost:8080/addressDelete/' + addressId)
 							.then(function(response) {
 								return response.data;
 							}, function(errResponse) {
-								console.error('Error while deleting adress');
+								console.error('Error while deleting address');
 								return $q.reject(errResponse);
 							});
 				}
