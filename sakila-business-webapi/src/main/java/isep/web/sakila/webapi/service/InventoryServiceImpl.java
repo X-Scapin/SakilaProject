@@ -30,8 +30,7 @@ public class InventoryServiceImpl implements InventoryService {
 
 	private static final Log log = LogFactory.getLog(InventoryServiceImpl.class);
 
-	
-	@Override
+
 	public InventoryWO findById(int id) {
 		log.debug("Find inventory with id : "+id);
 		Inventory inventory = inventoryRepository.findOne(id);
@@ -42,7 +41,6 @@ public class InventoryServiceImpl implements InventoryService {
 		return null;
 	}
 
-	@Override
 	public void saveInventory(InventoryWO inventoryWO) {
 		Inventory inventory = new Inventory();
 		Film film = filmRepository.findOne(inventoryWO.getFilm());
@@ -54,7 +52,6 @@ public class InventoryServiceImpl implements InventoryService {
 		inventoryRepository.save(inventory);
 	}
 
-	@Override
 	public void updateInventory(InventoryWO inventoryWO) {
 		Inventory inventory = inventoryRepository.findOne(inventoryWO.getInventoryId());
 		Film film = filmRepository.findOne(inventoryWO.getFilm());
@@ -66,12 +63,10 @@ public class InventoryServiceImpl implements InventoryService {
 		inventoryRepository.save(inventory);
 	}
 
-	@Override
 	public void deleteInventoryById(int id) {
 		inventoryRepository.delete(id);
 	}
 
-	@Override
 	public List<InventoryWO> findAllInventories() {
 		List<InventoryWO> inventories = new LinkedList<InventoryWO>();
 		for(Inventory inventory : inventoryRepository.findAll()){

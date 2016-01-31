@@ -38,8 +38,7 @@ public class StoreServiceImpl implements StoreService {
 	private CustomerRepository customerRepository;
 	
 	private static final Log log = LogFactory.getLog(StoreServiceImpl.class);
-	
-	@Override
+
 	public StoreWO findById(int id) {
 		log.debug("Find store with id : "+id);
 		Store store = storeRepository.findOne((byte) id);
@@ -51,7 +50,6 @@ public class StoreServiceImpl implements StoreService {
 		return null;
 	}
 
-	@Override
 	public void saveStore(StoreWO storeWO) {
 		Store store = new Store();
 		Address adress = adressRepository.findOne(storeWO.getAdress());
@@ -69,7 +67,6 @@ public class StoreServiceImpl implements StoreService {
 		storeRepository.save(store);
 	}
 
-	@Override
 	public void updateStore(StoreWO storeWO) {
 		Store store = storeRepository.findOne((byte) storeWO.getStoreId());
 		Address adress = adressRepository.findOne(storeWO.getAdress());
@@ -87,12 +84,10 @@ public class StoreServiceImpl implements StoreService {
 		storeRepository.save(store);
 	}
 
-	@Override
 	public void deleteStoreById(int id) {
 		storeRepository.delete((byte) id);
 	}
 
-	@Override
 	public List<StoreWO> findAllStores() {
 		List<StoreWO> stores = new LinkedList<StoreWO>();
 		for (Store store : storeRepository.findAll()) {

@@ -64,7 +64,7 @@ public class CustomerServiceImpl implements CustomerService {
 			customer.setAddress(address);
 		}
 		
-		Store store = storeRepository.findOne(customerWO.getStore_id());
+		Store store = storeRepository.findOne((byte) customerWO.getStore_id());
 		if(store != null){
 			customer.setStore(store);
 		}
@@ -83,7 +83,7 @@ public class CustomerServiceImpl implements CustomerService {
 			customer2update.setAddress(address);
 		}
 		
-		Store store = storeRepository.findOne(customerWO.getStore_id());
+		Store store = storeRepository.findOne((byte) customerWO.getStore_id());
 		if(store != null){
 			customer2update.setStore(store);
 		}
