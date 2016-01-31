@@ -30,8 +30,7 @@ public class InventoryServiceImpl implements InventoryService {
 
 	private static final Log log = LogFactory.getLog(InventoryServiceImpl.class);
 
-	
-	@Override
+
 	public InventoryWO findById(int id) {
 		log.debug("Find inventory with id : "+id);
 		Inventory inventory = inventoryRepository.findOne(id);
@@ -42,24 +41,10 @@ public class InventoryServiceImpl implements InventoryService {
 		return null;
 	}
 
-	@Override
-	public void saveInventory(InventoryWO userWO) {
+	public void saveInventory(InventoryWO inventoryWO) {
 		Inventory inventory = new Inventory();
-		
-		Film film = filmRepository.findOne(userWO.getFilm());
-		Store store = storeRepository.findOne(userWO.getStore());
-		
-		inventory.setFilm(film);
-		inventory.setStore(store);
-		inventory.setLastUpdate(new Timestamp(System.currentTimeMillis()));
-		inventoryRepository.save(inventory);
-	}
-
-	@Override
-	public void updateInventory(InventoryWO userWO) {
-		Inventory inventory = inventoryRepository.findOne(userWO.getInventoryId());
-		Film film = filmRepository.findOne(userWO.getFilm());
-		Store store = storeRepository.findOne(userWO.getStore());
+		Film film = filmRepository.findOne(inventoryWO.getFilm());
+		Store store = storeRepository.findOne((byte) inventoryWO.getStore());
 		
 		inventory.setFilm(film);
 		inventory.setStore(store);
@@ -67,12 +52,21 @@ public class InventoryServiceImpl implements InventoryService {
 		inventoryRepository.save(inventory);
 	}
 
-	@Override
+	public void updateInventory(InventoryWO inventoryWO) {
+		Inventory inventory = inventoryRepository.findOne(inventoryWO.getInventoryId());
+		Film film = filmRepository.findOne(inventoryWO.getFilm());
+		Store store = storeRepository.findOne((byte) inventoryWO.getStore());
+		
+		inventory.setFilm(film);
+		inventory.setStore(store);
+		inventory.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+		inventoryRepository.save(inventory);
+	}
+
 	public void deleteInventoryById(int id) {
 		inventoryRepository.delete(id);
 	}
 
-	@Override
 	public List<InventoryWO> findAllInventories() {
 		List<InventoryWO> inventories = new LinkedList<InventoryWO>();
 		for(Inventory inventory : inventoryRepository.findAll()){
