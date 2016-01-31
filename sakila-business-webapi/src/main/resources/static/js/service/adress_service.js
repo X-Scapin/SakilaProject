@@ -16,9 +16,19 @@ App.factory('AdressService', [
 								return $q.reject(errResponse);
 							});
 				},
+				
+				readAdress : function(adress) {
+					return $http.post('http://localhost:8080/adress/', customer)
+							.then(function(response) {
+								return response.data;
+							}, function(errResponse) {
+								console.error('Error while reading adress');
+								return $q.reject(errResponse);
+							});
+				},
 
 				createAdress : function(adress) {
-					return $http.post('http://localhost:8080/adress/', adress)
+					return $http.post('http://localhost:8080/adressCreate/', adress)
 							.then(function(response) {
 								return response.data;
 							}, function(errResponse) {
