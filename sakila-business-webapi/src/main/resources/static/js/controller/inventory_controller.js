@@ -3,14 +3,24 @@
 App.controller('InventoryController', [
 		'$scope',
 		'InventoryService',
-		'FilmService',
-		'StoreService',
-		function($scope, $cookieStore, InventoryService, FilmService, StoreService) {
+		function($scope, InventoryService) {
 			var self = this;
-
 			self.inventory = {
 				inventoryId : null,
-				film : ''
-			}
+				film : '',
+				store : ''
+			};
+			self.inventories = [];
+			
+			self.fetchAllInventories = function() {
+				InventoryService.fetchAllInventories().then(function(d) {
+					self.inventories = d;
+				}, function (errResponse) {
+					console.error('Error while fetching inventories')
+				})
+			};
+			
+			self.fetchAllInventories();
+			
 			
 		} ]);

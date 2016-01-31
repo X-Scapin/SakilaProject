@@ -6,8 +6,7 @@ App.factory('InventoryService', [
 		function($http, $q) {
 
 			return {
-
-				fetchAllInventory : function() {
+				fetchAllInventories : function() {
 					return $http.get('http://localhost:8080/inventory/').then(
 							function(response) {
 								return response.data;

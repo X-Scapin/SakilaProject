@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
 <title>Inventory Management</title>
@@ -52,10 +51,32 @@
 			</div>
 			<div class="tablecontainer">
 				<table class="table table-hover">
-					
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Film id</th>
+							<th>Store id</th>
+							<th width="20%"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="i in ctrl.inventories">
+							<td><span ng-bind="i.inventoryId"></span></td>
+							<td><span ng-bind="i.film"></span></td>
+							<td><span ng-bind="i.store"></span></td>
+							<td></td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/service/inventory_service.js"></script>
+	<!-- <script src="js/service/film_service.js"></script>
+	<script src="js/service/store_service.js"></script> -->
+	<script src="js/controller/inventory_controller.js"></script>
 </body>
 </html>
