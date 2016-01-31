@@ -94,6 +94,7 @@ App.controller('CustomerController', [
 			
 			self.fetchAllAddress();
 			self.fetchAllCustomers();
+			self.fetchAllCitys();
 			
 
 			self.submit = function() {

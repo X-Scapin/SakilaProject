@@ -7,7 +7,7 @@ App.factory('CityService', [
 
 			return {
 
-				fetchAllCity : function() {
+				fetchAllCitys : function() {
 					return $http.get('http://localhost:8080/city/').then(
 							function(response) {
 								return response.data;
