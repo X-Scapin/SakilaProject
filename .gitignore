@@ -1,3 +1,7 @@
 sakila-business-dao/target
 sakila-business-webapi/target
 .settings/*
+sakila-business-dao/bin/*
+sakila-business-webapi/bin/*
+sakila-business-webapi/pom.xml
+sakila-business-dao/src/main/java/isep/web/sakila/jpa/config/PersistenceConfig.java
