@@ -13,8 +13,8 @@ App.controller('CustomerController', [
 				address : '',
 				address2 : '',
 				district : '',
-				city_id : '',
-				postalCode : ''	
+				postalCode : '',
+				city_id : '1',
 			}
 			
 			self.customer = {
@@ -67,7 +67,6 @@ App.controller('CustomerController', [
 			self.createAddress = function(address) {
 				AddressService.createAddress(address).then(function(d) {
 							self.address = d;
-							self.customer.address_Id = address.addressId;
 						}, function(errResponse) {
 							console.error('Error while creating Address.');
 						});
@@ -109,7 +108,8 @@ App.controller('CustomerController', [
 				if (self.customer.customerId == null) {
 					console.log('Saving New Customer', self.customer);
 					self.createAddress(self.address);
-					self.createCustomer(self.customer);
+					/*console.log(self.address.addressId);
+					self.createCustomer(self.customer)*/
 				} else {
 					console.log('Customer updating with id ',
 							self.customer.customerId);
@@ -159,7 +159,7 @@ App.controller('CustomerController', [
 					address : '',
 					address2 : '',
 					district : '',
-					city_id : '',
+					city_id : '1',
 					postalCode : '',	
 				}
 				$scope.myForm.$setPristine(); //reset Form
