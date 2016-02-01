@@ -39,12 +39,12 @@ public class AddressRestController {
 	@RequestMapping(value = "/address/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AddressWO> getAddress(@PathVariable("id") int id) {
 		System.out.println("Fetching Address with id " + id);
-		AddressWO staffWO = addressService.findById(id);
-		if (staffWO == null) {
+		AddressWO addressWO = addressService.findById(id);
+		if (addressWO == null) {
 			System.out.println("Address with id " + id + " not found");
 			return new ResponseEntity<AddressWO>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<AddressWO>(staffWO, HttpStatus.OK);
+		return new ResponseEntity<AddressWO>(addressWO, HttpStatus.OK);
 	}
 
 	// -------------------Create a Address----------------------------------

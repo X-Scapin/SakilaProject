@@ -54,7 +54,7 @@ public class AddressServiceImpl implements AddressService {
 		address.setAddress2(addressWO.getAddress2());
 		address.setDistrict(addressWO.getDistrict());
 		address.setPostalCode(addressWO.getPostal_code());
-		
+		address.setPhone("");
 		
 		City city = cityRepository.findOne(addressWO.getCity_id());
 		if(city != null){
