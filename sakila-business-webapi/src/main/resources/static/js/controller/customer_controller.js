@@ -24,7 +24,7 @@ App.controller('CustomerController', [
 				lastName : '',
 				email : '',
 				phone : '',
-				address_id : self.address.addressId,
+				address_id : null,
 			};
 			
 			
@@ -64,9 +64,10 @@ App.controller('CustomerController', [
 				});
 			};
 			
-			self.createAddress = function(address) {
+			self.createAddressAndCustomer = function(address, customer) {
 				AddressService.createAddress(address).then(function(d) {
-							self.address = d;
+							customer.address_id = d.addressId;
+							self.createCustomer(customer);
 						}, function(errResponse) {
 							console.error('Error while creating Address.');
 						});
@@ -106,10 +107,7 @@ App.controller('CustomerController', [
 
 			self.submit = function() {
 				if (self.customer.customerId == null) {
-					console.log('Saving New Customer', self.customer);
-					self.createAddress(self.address);
-					/*console.log(self.address.addressId);
-					self.createCustomer(self.customer)*/
+					self.createAddressAndCustomer(self.address,self.customer);			
 				} else {
 					console.log('Customer updating with id ',
 							self.customer.customerId);
@@ -153,7 +151,7 @@ App.controller('CustomerController', [
 					lastName : '',
 					email : '',
 					phone : '',
-					addressId : '',
+					address_id : null,
 				};
 				self.address = {
 					address : '',

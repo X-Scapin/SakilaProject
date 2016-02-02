@@ -1,6 +1,7 @@
 package isep.web.sakila.webapi.service;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -68,7 +69,8 @@ public class CustomerServiceImpl implements CustomerService {
 		if(store != null){
 			customer.setStore(store);
 		}
-		
+		Date dateobj = new Date();
+		customer.setCreateDate(dateobj);
 		customer.setLastUpdate(new Timestamp(System.currentTimeMillis()));
 		customerRepository.save(customer);
 	}

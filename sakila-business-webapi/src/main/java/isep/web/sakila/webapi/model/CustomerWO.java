@@ -78,8 +78,8 @@ public class CustomerWO extends WebObject{
 		return address_id;
 	}
 
-	public void setAddress_id(int adressId) {
-		this.address_id = adressId;
+	public void setAddress_id(int adress_id) {
+		this.address_id = adress_id;
 	}
 
 	public int getStore_id() {

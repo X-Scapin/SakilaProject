@@ -1,5 +1,7 @@
 package isep.web.sakila.webapi.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
+import isep.web.sakila.jpa.entities.Address;
 import isep.web.sakila.webapi.model.AddressWO;
 import isep.web.sakila.webapi.service.AddressService;
 
@@ -50,14 +52,13 @@ public class AddressRestController {
 	// -------------------Create a Address----------------------------------
 
 	@RequestMapping(value = "/address/", method = RequestMethod.POST)
-	public ResponseEntity<Void> createAddress(@RequestBody AddressWO addressWO, UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<AddressWO> createAddress(@RequestBody AddressWO addressWO, UriComponentsBuilder ucBuilder) {
 		System.out.println("Creating Address " + addressWO.getAddress());
 
-		addressService.saveAddress(addressWO);
+		Address newAddress = addressService.saveAddress(addressWO);
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/address/{id}").buildAndExpand(addressWO.getAddressId()).toUri());
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		AddressWO newAddressWO = addressService.findById(newAddress.getAddressId());
+		return new ResponseEntity<AddressWO>(newAddressWO, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/addressUpdate/", method = RequestMethod.POST)
