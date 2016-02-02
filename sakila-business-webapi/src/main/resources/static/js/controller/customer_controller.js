@@ -13,8 +13,8 @@ App.controller('CustomerController', [
 				address : '',
 				address2 : '',
 				district : '',
-				city_id : '',
-				postalCode : ''	
+				postalCode : '',
+				city_id : '1',
 			}
 			
 			self.customer = {
@@ -29,7 +29,14 @@ App.controller('CustomerController', [
 			
 			
 			self.customers = [];
-			self.customerAddress = '';
+			self.customerAddress = {
+					addressId : null,
+					address : '',
+					address2 : '',
+					district : '',
+					city_id : '',
+					postalCode : ''	
+				};
 			self.citys = [];
 
 			self.fetchAllCustomers = function() {
@@ -40,9 +47,10 @@ App.controller('CustomerController', [
 				});
 			};
 			
-			self.fetchReadAddress = function(customer) {
-				AddressService.readAddress(customer).then(function(d) {
+			self.readAddress = function(address_Id) {
+				AddressService.readAddress(address_Id).then(function(d) {
 					self.customerAddress = d;
+					console.log(d);
 				}, function(errResponse) {
 					console.error('Error while fetching Currencies');
 				});
@@ -57,8 +65,9 @@ App.controller('CustomerController', [
 			};
 			
 			self.createAddress = function(address) {
-				AddressService.createAddress(address).then(
-						self.fetchAllCustomers, function(errResponse) {
+				AddressService.createAddress(address).then(function(d) {
+							self.address = d;
+						}, function(errResponse) {
 							console.error('Error while creating Address.');
 						});
 			};
@@ -99,7 +108,8 @@ App.controller('CustomerController', [
 				if (self.customer.customerId == null) {
 					console.log('Saving New Customer', self.customer);
 					self.createAddress(self.address);
-					self.createCustomer(self.customer);
+					/*console.log(self.address.addressId);
+					self.createCustomer(self.customer)*/
 				} else {
 					console.log('Customer updating with id ',
 							self.customer.customerId);
@@ -115,12 +125,20 @@ App.controller('CustomerController', [
 				console.log('address id to be edited', addressId);
 				for (var i = 0; i < self.customers.length; i++) {
 					if (self.customers[i].customerId == customerId) {
-						if (self.customers[i].address_id == self.customerAddress.addressId) {
-							self.customer = angular.copy(self.customers[i]);
-							self.address = angular.copy(self.address[j]);
-							console.log(self.customer);
-							break;
+						self.customer = angular.copy(self.customers[i]);
+						if (self.customers[i].address_id > 0) {
+							self.readAddress(self.customers[i].address_id);
+							console.log(self.customers[i].address_id);
+							console.log(self.customerAddress);
+							if (self.customers[i].address_id == self.customerAddress.addressId) {
+								console.log('test');
+								self.address = angular.copy(self.customerAddress);
+								
+								
+							}
 						}
+						console.log(self.customer);
+						break;
 					}
 				}
 			};
@@ -141,7 +159,7 @@ App.controller('CustomerController', [
 					address : '',
 					address2 : '',
 					district : '',
-					city_id : '',
+					city_id : '1',
 					postalCode : '',	
 				}
 				$scope.myForm.$setPristine(); //reset Form
