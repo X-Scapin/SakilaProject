@@ -7,11 +7,21 @@ App.factory('InventoryService', [
 
 			return {
 				fetchAllInventories : function() {
-					return $http.get('http://localhost:8080/inventory/').then(
+					return $http.get('http://localhost:8080/inventory/store/1').then(
 							function(response) {
 								return response.data;
 							}, function(errResponse) {
 								console.error('Error while fetching inventories');
+								return $q.reject(errResponse);
+							});
+				},
+				
+				getInventoriesByFilm : function(filmId) {
+					return $http.get('http://localhost:8080/inventory/film/'+filmId).then(
+							function(response) {
+								return response.data;
+							}, function(errResponse) {
+								console.error('Error while fetching inventories by film');
 								return $q.reject(errResponse);
 							});
 				},

@@ -31,52 +31,47 @@
 <link href="css/app.css" rel="stylesheet"></link>
 </head>
 <body ng-app="myApp" class="ng-cloak">
-	<div class="generic-container" ng-controller="InventoryController as ctrl">
+	<div class="generic-container"
+		ng-controller="InventoryController as ctrl">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<span class="lead">Inventory Management Form </span>
-			</div>
-			<div class="formcontainer">
-				<form ng-submit="ctrl.submit()" name="myForm"
-					class="form-horizontal">
-					<input type="hidden" ng-model="ctrl.inventory.inventoryId" />
-					
-				</form>
-			</div>
-		</div>
-		<div class="panel panel-default">
-			<!-- Default panel contents -->
-			<div class="panel-heading">
-				<span class="lead">List of Inventories </span>
+				<span class="lead">Inventory</span>
 			</div>
 			<div class="tablecontainer">
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>Film id</th>
-							<th>Store id</th>
+							<th>Film</th>
+							<th>Description</th>
+							<th>Quantity</th>
 							<th width="20%"></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="i in ctrl.inventories">
-							<td><span ng-bind="i.inventoryId"></span></td>
-							<td><span ng-bind="i.film"></span></td>
-							<td><span ng-bind="i.store"></span></td>
-							<td></td>
+						<tr ng-repeat="f in ctrl.films">
+							<td><span ng-bind="f.title"></span></td>
+							<td><span ng-bind="f.description"></span></td>
+							<td><span ng-bind="f.quantity"></span></td>
+							<td>
+								<button type="button" ng-click="ctrl.addInventory(f.filmId)"
+									class="btn btn-success custom-width">Add</button>
+								<button type="button" ng-click="ctrl.remove(f.filmId)"
+									ng-disabled='f.quantity > 0 ? false : true'
+									class="btn btn-danger custom-width">Remove</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/service/inventory_service.js"></script>
-	<!-- <script src="js/service/film_service.js"></script>
-	<script src="js/service/store_service.js"></script> -->
+	<script src="js/service/film_service.js"></script>
+	<script src="js/service/store_service.js"></script>
 	<script src="js/controller/inventory_controller.js"></script>
 </body>
 </html>

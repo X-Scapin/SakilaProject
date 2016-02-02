@@ -17,12 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import isep.web.sakila.webapi.model.InventoryWO;
+import isep.web.sakila.webapi.service.FilmService;
 import isep.web.sakila.webapi.service.InventoryService;
 
 @RestController
 public class InventoryRestController {
 	@Autowired
 	InventoryService inventoryService;
+	@Autowired
+	FilmService filmService;
 	
 	private static final Log log = LogFactory.getLog(InventoryRestController.class);
 	
@@ -30,6 +33,29 @@ public class InventoryRestController {
 	public ResponseEntity<List<InventoryWO>> listAllInventories() {
 		log.debug("List inventories");
 		List<InventoryWO> inventories = inventoryService.findAllInventories();
+		log.debug("Got "+inventories.size()+" inventories");
+		if (inventories.isEmpty()) {
+			return new ResponseEntity<List<InventoryWO>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<InventoryWO>>(inventories, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/inventory/store/{id}", method = RequestMethod.GET)
+	public ResponseEntity<List<InventoryWO>> listInventoriesByStore(@PathVariable("id") int storeId) {
+		log.debug("List inventories by store id : "+storeId);
+		List<InventoryWO> inventories = inventoryService.findInventoriesByStore(storeId);
+		log.debug("Got "+inventories.size()+" inventories");
+		if (inventories.isEmpty()) {
+			return new ResponseEntity<List<InventoryWO>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<InventoryWO>>(inventories, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/inventory/film/{id}", method = RequestMethod.GET)
+	public ResponseEntity<List<InventoryWO>> listInventoriesByFilm(@PathVariable("id") int filmId) {
+		log.debug("List inventories by film id : "+filmId);
+		List<InventoryWO> inventories = inventoryService.findInventoriesByFilm(filmId);
+		log.debug("Got "+inventories.size()+" inventories");
 		if (inventories.isEmpty()) {
 			return new ResponseEntity<List<InventoryWO>>(HttpStatus.NO_CONTENT);
 		}

@@ -7,12 +7,22 @@ App.factory('FilmService', [
 
 			return {
 
-				fetchAllFilm : function() {
+				fetchAllFilms : function() {
 					return $http.get('http://localhost:8080/film/').then(
 							function(response) {
 								return response.data;
 							}, function(errResponse) {
 								console.error('Error while fetching films');
+								return $q.reject(errResponse);
+							});
+				},
+				
+				getFilm : function(id) {
+					return $http.get('http://localhost:8080/film/'+id).then(
+							function(response) {
+								return response.data;
+							}, function(errResponse){
+								console.error('Error while getting film with id :'+id)
 								return $q.reject(errResponse);
 							});
 				},

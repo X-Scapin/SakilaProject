@@ -14,4 +14,8 @@ public interface InventoryService {
 	void deleteInventoryById(int id);
 
 	List<InventoryWO> findAllInventories();
+	
+	List<InventoryWO> findInventoriesByStore(int storeId);
+	
+	List<InventoryWO> findInventoriesByFilm(int filmId);
 }

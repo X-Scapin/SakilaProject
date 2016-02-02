@@ -7,12 +7,22 @@ App.factory('StoreService', [
 
 			return {
 
-				fetchAllStore : function() {
+				fetchAllStores : function() {
 					return $http.get('http://localhost:8080/store/').then(
 							function(response) {
 								return response.data;
 							}, function(errResponse) {
 								console.error('Error while fetching stores');
+								return $q.reject(errResponse);
+							});
+				},
+				
+				getStore : function(id) {
+					return $http.get('http://localhost:8080/store/id').then(
+							function(response) {
+								return response.data;
+							}, function(errResponse) {
+								console.error('Error while getting store with id : '+id);
 								return $q.reject(errResponse);
 							});
 				},
