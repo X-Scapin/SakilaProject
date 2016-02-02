@@ -136,8 +136,8 @@
 							<label class="col-md-2 control-lable" for="file">Postal
 								Code</label>
 							<div class="col-md-7">
-								<input type="text" ng-model="ctrl.address.postalCode"
-									name="postalCode" class="form-control input-sm"
+								<input type="text" ng-model="ctrl.address.postal_code"
+									name="postal_code" class="form-control input-sm"
 									placeholder="Enter postal code. " />
 							</div>
 						</div>
@@ -197,7 +197,7 @@
 							<td><span ng-bind="u.firstName"></span></td>
 							<td>
 								<button type="button"
-									ng-click="ctrl.edit(u.customerId,u.address_Id)"
+									ng-click="ctrl.edit(u.customerId,u.address_id)"
 									class="btn btn-success custom-width">Edit</button>
 							</td>
 						</tr>
