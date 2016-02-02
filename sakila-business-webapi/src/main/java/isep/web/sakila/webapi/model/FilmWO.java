@@ -1,7 +1,13 @@
 package isep.web.sakila.webapi.model;
 
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+
+import isep.web.sakila.jpa.entities.Film;
+import isep.web.sakila.jpa.entities.FilmActor;
+import isep.web.sakila.jpa.entities.FilmCategory;
 
 public class FilmWO extends WebObject {
 	private static final long serialVersionUID = -8494386839845787279L;
@@ -10,38 +16,47 @@ public class FilmWO extends WebObject {
 	private String title;
 	private String description;
 	private List<Integer> filmActors;
-	private List<Integer> filmCategories;
-	// Useless when inserting a film ?
-//	private List<Integer> inventories;
-	private int language1;
-	private int language2;
-	private int length;
-	private int releaseYear;
-	private int rentalDuration;
-	private float rentalRate;
-	private float rentalCost;
-	private Set<String> specialFeatures;
+	private List<Byte> filmCategories;
+	private byte language_id;
+	private byte rentalDuration;
+	private BigDecimal replaCost;
 	
 	public FilmWO() {
 		super();
 	}
-	
-	public FilmWO(int filmId, String title, String description, List<Integer> filmActors, List<Integer> filmCategories,
-			int language1, int length, int releaseYear, int rentalDuration, float rentalRate, float rentalCost,
-			Set<String> specialFeatures) {
+
+	public FilmWO(int filmId, String title, String description, List<Integer> filmActors, List<Byte> filmCategories,
+			byte language_id, byte rentalDuration, BigDecimal replaCost) {
 		super();
 		this.filmId = filmId;
 		this.title = title;
 		this.description = description;
 		this.filmActors = filmActors;
 		this.filmCategories = filmCategories;
-		this.language1 = language1;
-		this.length = length;
-		this.releaseYear = releaseYear;
+		this.language_id = language_id;
 		this.rentalDuration = rentalDuration;
-		this.rentalRate = rentalRate;
-		this.rentalCost = rentalCost;
-		this.specialFeatures = specialFeatures;
+		this.replaCost = replaCost;
+	}
+	
+	public FilmWO(final Film film) {
+		super();
+		this.filmId = film.getFilmId();
+		this.title = film.getTitle();
+		this.description = film.getDescription();
+		
+		this.filmActors = new LinkedList<>();
+		for(FilmActor filmActor : film.getFilmActors()){
+			filmActors.add(filmActor.getActor().getActorId());
+		}
+		
+		this.filmCategories = new LinkedList<>();
+		for(FilmCategory filmCat : film.getFilmCategories()){
+			filmCategories.add(filmCat.getCategory().getCategoryId());
+		}
+		
+		this.language_id = film.getLanguage1().getLanguageId();
+		this.rentalDuration = film.getRentalDuration();
+		this.replaCost = film.getReplacementCost();
 	}
 
 	public int getFilmId() {
@@ -68,58 +83,28 @@ public class FilmWO extends WebObject {
 	public void setFilmActors(List<Integer> filmActors) {
 		this.filmActors = filmActors;
 	}
-	public List<Integer> getFilmCategories() {
+	public List<Byte> getFilmCategories() {
 		return filmCategories;
 	}
-	public void setFilmCategories(List<Integer> filmCategories) {
+	public void setFilmCategories(List<Byte> filmCategories) {
 		this.filmCategories = filmCategories;
 	}
-	public int getLanguage1() {
-		return language1;
+	public byte getLanguage_id() {
+		return language_id;
 	}
-	public void setLanguage1(int language1) {
-		this.language1 = language1;
+	public void setLanguage_id(byte language_id) {
+		this.language_id = language_id;
 	}
-	public int getLanguage2() {
-		return language2;
-	}
-	public void setLanguage2(int language2) {
-		this.language2 = language2;
-	}
-	public int getLength() {
-		return length;
-	}
-	public void setLength(int length) {
-		this.length = length;
-	}
-	public int getReleaseYear() {
-		return releaseYear;
-	}
-	public void setReleaseYear(int releaseYear) {
-		this.releaseYear = releaseYear;
-	}
-	public int getRentalDuration() {
+	public byte getRentalDuration() {
 		return rentalDuration;
 	}
-	public void setRentalDuration(int rentalDuration) {
+	public void setRentalDuration(byte rentalDuration) {
 		this.rentalDuration = rentalDuration;
 	}
-	public float getRentalRate() {
-		return rentalRate;
+	public BigDecimal getReplaCost() {
+		return replaCost;
 	}
-	public void setRentalRate(float rentalRate) {
-		this.rentalRate = rentalRate;
-	}
-	public float getRentalCost() {
-		return rentalCost;
-	}
-	public void setRentalCost(float rentalCost) {
-		this.rentalCost = rentalCost;
-	}
-	public Set<String> getSpecialFeatures() {
-		return specialFeatures;
-	}
-	public void setSpecialFeatures(Set<String> specialFeatures) {
-		this.specialFeatures = specialFeatures;
+	public void setReplaCost(BigDecimal rentalCost) {
+		this.replaCost = rentalCost;
 	}
 }

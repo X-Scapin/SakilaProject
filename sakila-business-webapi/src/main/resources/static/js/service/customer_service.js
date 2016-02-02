@@ -31,7 +31,7 @@ App.factory('CustomerService', [
 				updateCustomer : function(customer, customerId) {
 					console.log("XXX", customer);
 					return $http.post('http://localhost:8080/customerUpdate/',
-							actor).then(function(response) {
+							customer).then(function(response) {
 						return response.data;
 					}, function(errResponse) {
 						console.error('Error while updating customer');

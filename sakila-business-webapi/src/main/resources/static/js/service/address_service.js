@@ -40,7 +40,7 @@ App.factory('AddressService', [
 				updateAddress : function(address, addressId) {
 					console.log("XXX", address);
 					return $http.post('http://localhost:8080/addressUpdate/',
-							actor).then(function(response) {
+							address).then(function(response) {
 						return response.data;
 					}, function(errResponse) {
 						console.error('Error while updating address');
