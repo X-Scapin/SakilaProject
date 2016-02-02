@@ -48,7 +48,7 @@ public class AddressServiceImpl implements AddressService {
 		return null;
 	}
 
-	public void saveAddress(AddressWO addressWO) {
+	public Address saveAddress(AddressWO addressWO) {
 		Address address = new Address();
 		address.setAddress(addressWO.getAddress());
 		address.setAddress2(addressWO.getAddress2());
@@ -62,7 +62,8 @@ public class AddressServiceImpl implements AddressService {
 		}
 		
 		address.setLastUpdate(new Timestamp(System.currentTimeMillis()));
-		addressRepository.save(address);
+		Address newAddress = addressRepository.save(address);
+		return newAddress;
 	}
 
 	public void updateAddress(AddressWO addressWO) {

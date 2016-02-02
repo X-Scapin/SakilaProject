@@ -13,7 +13,7 @@ App.controller('CustomerController', [
 				address : '',
 				address2 : '',
 				district : '',
-				postalCode : '',
+				postal_code : '',
 				city_id : '1',
 			}
 			
@@ -24,20 +24,13 @@ App.controller('CustomerController', [
 				lastName : '',
 				email : '',
 				phone : '',
-				address_id : self.address.addressId,
+				address_id : null,
 			};
 			
 			
 			self.customers = [];
-			self.customerAddress = {
-					addressId : null,
-					address : '',
-					address2 : '',
-					district : '',
-					city_id : '',
-					postalCode : ''	
-				};
 			self.citys = [];
+			self.allAddress = [];
 
 			self.fetchAllCustomers = function() {
 				CustomerService.fetchAllCustomers().then(function(d) {
@@ -47,14 +40,21 @@ App.controller('CustomerController', [
 				});
 			};
 			
-			self.readAddress = function(address_Id) {
-				AddressService.readAddress(address_Id).then(function(d) {
-					self.customerAddress = d;
-					console.log(d);
+			self.fetchAllAddress = function() {
+				AddressService.fetchAllAddress().then(function(d) {
+					self.allAddress = d;
 				}, function(errResponse) {
 					console.error('Error while fetching Currencies');
 				});
 			};
+			
+//			self.readAddress = function(address_Id) {
+//				AddressService.readAddress(address_Id).then(function(d) {
+//					self.customerAddress = d;
+//				}, function(errResponse) {
+//					console.error('Error while fetching Currencies');
+//				});
+//			};
 			
 			self.fetchAllCitys = function() {
 				CityService.fetchAllCitys().then(function(d) {
@@ -64,9 +64,10 @@ App.controller('CustomerController', [
 				});
 			};
 			
-			self.createAddress = function(address) {
+			self.createAddressAndCustomer = function(address, customer) {
 				AddressService.createAddress(address).then(function(d) {
-							self.address = d;
+							customer.address_id = d.addressId;
+							self.createCustomer(customer);
 						}, function(errResponse) {
 							console.error('Error while creating Address.');
 						});
@@ -101,15 +102,13 @@ App.controller('CustomerController', [
 			};
 			
 			self.fetchAllCustomers();
+			self.fetchAllAddress();
 			self.fetchAllCitys();
 			
 
 			self.submit = function() {
 				if (self.customer.customerId == null) {
-					console.log('Saving New Customer', self.customer);
-					self.createAddress(self.address);
-					/*console.log(self.address.addressId);
-					self.createCustomer(self.customer)*/
+					self.createAddressAndCustomer(self.address,self.customer);			
 				} else {
 					console.log('Customer updating with id ',
 							self.customer.customerId);
@@ -127,14 +126,11 @@ App.controller('CustomerController', [
 					if (self.customers[i].customerId == customerId) {
 						self.customer = angular.copy(self.customers[i]);
 						if (self.customers[i].address_id > 0) {
-							self.readAddress(self.customers[i].address_id);
-							console.log(self.customers[i].address_id);
-							console.log(self.customerAddress);
-							if (self.customers[i].address_id == self.customerAddress.addressId) {
-								console.log('test');
-								self.address = angular.copy(self.customerAddress);
-								
-								
+							for (var j = 0; j < self.allAddress.length; j++) {
+								if (addressId == self.allAddress[j].addressId) {
+									console.log(self.allAddress[j]);
+									self.address = angular.copy(self.allAddress[j]);
+								}
 							}
 						}
 						console.log(self.customer);
@@ -153,14 +149,14 @@ App.controller('CustomerController', [
 					lastName : '',
 					email : '',
 					phone : '',
-					addressId : '',
+					address_id : null,
 				};
 				self.address = {
 					address : '',
 					address2 : '',
 					district : '',
 					city_id : '1',
-					postalCode : '',	
+					postal_code : '',	
 				}
 				$scope.myForm.$setPristine(); //reset Form
 			};

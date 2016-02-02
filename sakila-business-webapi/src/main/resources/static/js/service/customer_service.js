@@ -21,6 +21,7 @@ App.factory('CustomerService', [
 					return $http.post('http://localhost:8080/customer/', customer)
 							.then(function(response) {
 								return response.data;
+								console.log("creation de l'addresse, appel du webservice");
 							}, function(errResponse) {
 								console.error('Error while creating customer');
 								return $q.reject(errResponse);
@@ -30,7 +31,7 @@ App.factory('CustomerService', [
 				updateCustomer : function(customer, customerId) {
 					console.log("XXX", customer);
 					return $http.post('http://localhost:8080/customerUpdate/',
-							actor).then(function(response) {
+							customer).then(function(response) {
 						return response.data;
 					}, function(errResponse) {
 						console.error('Error while updating customer');
