@@ -12,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import isep.web.sakila.dao.repositories.FilmRepository;
 import isep.web.sakila.dao.repositories.InventoryRepository;
+import isep.web.sakila.dao.repositories.RentalRepository;
 import isep.web.sakila.dao.repositories.StoreRepository;
 import isep.web.sakila.jpa.entities.Film;
 import isep.web.sakila.jpa.entities.Inventory;
+import isep.web.sakila.jpa.entities.Rental;
 import isep.web.sakila.jpa.entities.Store;
 import isep.web.sakila.webapi.model.InventoryWO;
 
@@ -27,6 +29,8 @@ public class InventoryServiceImpl implements InventoryService {
 	private FilmRepository filmRepository;
 	@Autowired
 	private StoreRepository storeRepository;
+	@Autowired
+	private RentalRepository rentalRepository;
 
 	private static final Log log = LogFactory.getLog(InventoryServiceImpl.class);
 
@@ -66,6 +70,9 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	public void deleteInventoryById(int id) {
+		Inventory inventory = inventoryRepository.findOne(id);
+		Iterable<Rental> rentals = inventory.getRentals();
+		rentalRepository.delete(rentals);
 		inventoryRepository.delete(id);
 	}
 	

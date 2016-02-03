@@ -53,9 +53,9 @@
 							<td><span ng-bind="f.description"></span></td>
 							<td><span ng-bind="f.quantity"></span></td>
 							<td>
-								<button type="button" ng-click="ctrl.addInventory(f.filmId)"
+								<button type="button" ng-click="ctrl.addInventory(f)"
 									class="btn btn-success custom-width">Add</button>
-								<button type="button" ng-click="ctrl.remove(f.filmId)"
+								<button type="button" ng-click="ctrl.remove(f)"
 									ng-disabled='f.quantity > 0 ? false : true'
 									class="btn btn-danger custom-width">Remove</button>
 							</td>
