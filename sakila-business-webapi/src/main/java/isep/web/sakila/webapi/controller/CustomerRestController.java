@@ -35,6 +35,15 @@ public class CustomerRestController {
 		}
 		return new ResponseEntity<List<CustomerWO>>(customers, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/customer/store/{id}", method = RequestMethod.GET)
+	public ResponseEntity<List<CustomerWO>> listAllCustomersByStore(@PathVariable("id") int storeId) {
+		List<CustomerWO> customers = customerService.findAllCustomersByStore(storeId);
+		if (customers.isEmpty()) {
+			return new ResponseEntity<List<CustomerWO>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<CustomerWO>>(customers, HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/customer/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CustomerWO> getCustomer(@PathVariable("id") int id) {

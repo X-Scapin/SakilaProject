@@ -8,7 +8,7 @@ App.factory('CustomerService', [
 			return {
 
 				fetchAllCustomers : function() {
-					return $http.get('http://localhost:8080/customer/').then(
+					return $http.get('http://localhost:8080/customer/store/1').then(
 							function(response) {
 								return response.data;
 							}, function(errResponse) {

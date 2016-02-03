@@ -16,8 +16,10 @@ import isep.web.sakila.dao.repositories.CustomerRepository;
 import isep.web.sakila.dao.repositories.StoreRepository;
 import isep.web.sakila.jpa.entities.Address;
 import isep.web.sakila.jpa.entities.Customer;
+import isep.web.sakila.jpa.entities.Inventory;
 import isep.web.sakila.jpa.entities.Store;
 import isep.web.sakila.webapi.model.CustomerWO;
+import isep.web.sakila.webapi.model.InventoryWO;
 
 @Service("customerService")
 @Transactional
@@ -39,6 +41,17 @@ public class CustomerServiceImpl implements CustomerService {
 		for (Customer customer : customerRepository.findAll()) {
 			customers.add(new CustomerWO(customer));
 			log.debug("Adding " + customer);
+		}
+
+		return customers;
+	}
+
+	public List<CustomerWO> findAllCustomersByStore(int storeId) {
+		List<CustomerWO> customers = new LinkedList<CustomerWO>();
+
+		for (Customer customer : customerRepository.findAll()) {
+			if(customer.getStore().getStoreId()==storeId)
+				customers.add(new CustomerWO(customer));
 		}
 
 		return customers;
