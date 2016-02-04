@@ -19,7 +19,7 @@ import isep.web.sakila.webapi.service.FilmService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SakilaBusinessWebapiApplication.class)
-public class SakilaBusinessWebapiApplicationTests {
+public class ServicesUnitTest {
 
 	@Autowired
 	private ActorService actorService;
