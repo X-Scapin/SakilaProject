@@ -19,6 +19,9 @@ App.controller('FilmController', [
 				rentalDuration : '',
 				replaCost : ''
 			};
+			self.filmActor = {
+				actorId : null
+			};
 			self.films = [];
 			self.languages = [];
 			self.actors = [];
@@ -28,6 +31,10 @@ App.controller('FilmController', [
 				FilmService.fetchAllFilms().then(function(d) {
 					self.films = d;
 					self.fetchAllLanguages();
+					for (var i = 0; i < self.films.length; i++) {
+						self.getFilmCategories(self.films[i]);
+						self.getFilmActors(self.films[i]);
+					}
 				}, function (errResponse) {
 					console.error('Error while fetching films');
 				});
@@ -53,7 +60,7 @@ App.controller('FilmController', [
 				LanguageService.fetchAllLanguage().then(function(d) {
 					self.languages = d;
 					angular.forEach(self.films, function(film, key) {
-						for (var i = 0; i < self.languages; i++) {
+						for (var i = 0; i < self.languages.length; i++) {
 							if (self.languages[i].languageId == film.language_id) {
 								film.language = self.languages[i];
 							}
@@ -88,30 +95,47 @@ App.controller('FilmController', [
 				});
 			};
 			
+			self.createFilm = function() {
+				console.log("Create film "+self.film);
+				FilmService.createFilm(self.film).then(function(d){
+					console.log("Film created");
+				}, function (errResponse) {
+					console.error('Error while creating film');
+				});
+			};
+			
+			self.updateFilm = function() {
+				console.log('Update film', self.film);
+				FilmService.updateFilm(self.film).then(function(d){
+					console.log("Film updated");
+				}, function (errResponse) {
+					console.error('Error while updating film');
+				});
+			};
+			
 			self.fetchAllFilms();
 			self.fetchAllActors();
 			self.fetchAllCategories();
 			
-			//TODO
-			/*
 			self.submit = function() {
-				if (self.customer.customerId == null) {
-					self.createAddressAndCustomer(self.address,self.customer);			
-				} else {
-					console.log('Customer updating with id ',
-							self.customer.customerId);
-					console.log('Customer: ', self.customer);
-					self.updateAddress(self.address);
-					self.updateCustomer(self.customer);
-				}
+				
 				self.reset();
 			};
-			*/
 			
-			self.edit = function(filmId) {
-				console.log('Film id to be edited', filmId);
+			self.submitActors = function(film) {
+				ActorService.createFilmActor(self.filmActor.actorId, film.filmId).then(function(d){
+					self.getFilmActors(film);
+					console.log("FilmActor created");
+				}, function (errResponse) {
+					console.error('Error while creating film');
+				});
+				self.reset();
+			};
+			
+			self.edit = function(film) {
+				console.log('Film id to be edited', film.filmId);
 				for (var i = 0; i < self.films.length; i++) {
-					if (self.films[i].filmId == filmId) {
+					if (self.films[i].filmId == film.filmId) {
 						self.film = angular.copy(self.films[i]);
 						break;
 					}
@@ -147,6 +171,11 @@ App.controller('FilmController', [
 					languageId : null,
 					name : ''
 				};
+				
+				self.filmActor = {
+					actorId : null
+				};
 				$scope.myForm.$setPristine(); //reset Form
+				$scope.actorForm.$setPristine();
 			};
 		} ]);
