@@ -47,6 +47,17 @@ App.factory('ActorService', [
 								console.error('Error while deleting actor');
 								return $q.reject(errResponse);
 							});
+				},
+				
+				getFilmActors : function(filmId) {
+					return $http.get(
+							'http://localhost:8080/actor/film/' + filmId)
+							.then(function(response) {
+								return response.data;
+							}, function(errResponse) {
+								console.error('Error while getting film actors');
+								return $q.reject(errResponse);
+							});
 				}
 
 			};
