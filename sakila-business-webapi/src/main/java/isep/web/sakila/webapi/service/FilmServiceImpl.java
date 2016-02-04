@@ -20,7 +20,9 @@ import isep.web.sakila.jpa.entities.Actor;
 import isep.web.sakila.jpa.entities.Category;
 import isep.web.sakila.jpa.entities.Film;
 import isep.web.sakila.jpa.entities.FilmActor;
+import isep.web.sakila.jpa.entities.FilmActorPK;
 import isep.web.sakila.jpa.entities.FilmCategory;
+import isep.web.sakila.jpa.entities.FilmCategoryPK;
 import isep.web.sakila.jpa.entities.Inventory;
 import isep.web.sakila.jpa.entities.Language;
 import isep.web.sakila.webapi.model.FilmWO;
@@ -120,6 +122,11 @@ public class FilmServiceImpl implements FilmService {
 		Category category = categoryRepository.findOne(categoryId);
 		if(film!=null && category!=null){
 			FilmCategory filmCat = new FilmCategory();
+			filmCat.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			FilmCategoryPK fck = new FilmCategoryPK();
+			fck.setCategoryId(categoryId);
+			fck.setFilmId(id);
+			filmCat.setId(fck);
 			filmCat.setCategory(category);
 			filmCat.setFilm(film);
 			film.addFilmCategory(filmCat);
@@ -147,11 +154,16 @@ public class FilmServiceImpl implements FilmService {
 		Film film = filmRepository.findOne(id);
 		Actor actor = actorRepository.findOne(actorId);
 		if(film!=null && actor!=null){
-			FilmActor filmCat = new FilmActor();
-			filmCat.setActor(actor);
-			filmCat.setFilm(film);
-			film.addFilmActor(filmCat);
-			filmActorRepository.save(filmCat);
+			FilmActor filmAct = new FilmActor();
+			filmAct.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			FilmActorPK fpk = new FilmActorPK();
+			fpk.setActorId(actorId);
+			fpk.setFilmId(id);
+			filmAct.setId(fpk);
+			filmAct.setActor(actor);
+			filmAct.setFilm(film);
+			film.addFilmActor(filmAct);
+			filmActorRepository.save(filmAct);
 			filmRepository.save(film);
 		}
 	}
