@@ -118,8 +118,13 @@ App.controller('FilmController', [
 			self.fetchAllCategories();
 			
 			self.submit = function() {
-				
+				if (self.film.filmId == null) {
+					self.createFilm();
+				} else {
+					self.updateFilm();
+				}
 				self.reset();
+				self.fetchAllFilms();
 			};
 			
 			self.submitActors = function(film) {

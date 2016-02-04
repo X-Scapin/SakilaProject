@@ -100,8 +100,7 @@ public class FilmServiceImpl implements FilmService {
 		film2update.setDescription(filmWO.getDescription());
 		film2update.setRentalDuration(filmWO.getRentalDuration());
 		film2update.setReplacementCost(filmWO.getReplaCost());
-
-		
+		film2update.setReleaseYear(null);
 		film2update.setLastUpdate(new Timestamp(System.currentTimeMillis()));
 		filmRepository.save(film2update);
 	}
