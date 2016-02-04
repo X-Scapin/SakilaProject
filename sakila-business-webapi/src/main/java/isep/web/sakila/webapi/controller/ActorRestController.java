@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import isep.web.sakila.webapi.model.ActorWO;
+import isep.web.sakila.webapi.model.CustomerWO;
 import isep.web.sakila.webapi.service.ActorService;
 
 @RestController
@@ -29,6 +30,15 @@ public class ActorRestController {
 	@RequestMapping(value = "/actor/", method = RequestMethod.GET)
 	public ResponseEntity<List<ActorWO>> listAllActors() {
 		List<ActorWO> actors = actorService.findAllActors();
+		if (actors.isEmpty()) {
+			return new ResponseEntity<List<ActorWO>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<ActorWO>>(actors, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/actor/film/{id}", method = RequestMethod.GET)
+	public ResponseEntity<List<ActorWO>> listAllCustomersByStore(@PathVariable("id") int filmId) {
+		List<ActorWO> actors = actorService.findAllActorsFromFilm(filmId);
 		if (actors.isEmpty()) {
 			return new ResponseEntity<List<ActorWO>>(HttpStatus.NO_CONTENT);
 		}

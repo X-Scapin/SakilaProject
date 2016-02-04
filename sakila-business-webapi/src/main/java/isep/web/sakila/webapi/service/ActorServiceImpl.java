@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import isep.web.sakila.dao.repositories.ActorRepository;
+import isep.web.sakila.dao.repositories.FilmRepository;
 import isep.web.sakila.jpa.entities.Actor;
+import isep.web.sakila.jpa.entities.Film;
+import isep.web.sakila.jpa.entities.FilmActor;
 import isep.web.sakila.webapi.model.ActorWO;
 
 @Service("actorService")
@@ -19,6 +22,9 @@ import isep.web.sakila.webapi.model.ActorWO;
 public class ActorServiceImpl implements ActorService {
 	@Autowired
 	private ActorRepository actorRepository;
+	
+	@Autowired
+	private FilmRepository filmRepository;
 
 	private static final Log log = LogFactory.getLog(ActorServiceImpl.class);
 
@@ -30,6 +36,20 @@ public class ActorServiceImpl implements ActorService {
 			log.debug("Adding " + actor);
 		}
 
+		return actors;
+	}
+
+	@Override
+	public List<ActorWO> findAllActorsFromFilm(int filmId) {
+		List<ActorWO> actors = new LinkedList<ActorWO>();
+		Film film = filmRepository.findOne(filmId);
+		if(film!=null){
+			for(FilmActor filmActor : film.getFilmActors()){
+				actors.add(new ActorWO(filmActor.getActor()));
+			}
+		}else{
+			log.debug("Fail to find film with id:" + filmId);
+		}
 		return actors;
 	}
 
@@ -62,4 +82,5 @@ public class ActorServiceImpl implements ActorService {
 	public void deleteActorById(int id) {
 		actorRepository.delete(id);
 	}
+
 }
