@@ -155,7 +155,7 @@
 					</div>
 				</form>
 				
-				<form ng-submit="ctrl.submitActors()" name="actorForm"
+				<form ng-submit="ctrl.submitActors(ctrl.film)" name="actorForm"
 					class="form-horizontal">
 					<input type="hidden" ng-model="ctrl.film.filmId" />
 					
@@ -178,8 +178,7 @@
 						<div class="form-actions floatRight">
 							<input type="submit"
 								value="Add"
-								class="btn btn-primary btn-sm" 
-								ng-disabled="{{!ctrl.film.filmId ? false : true}}">
+								class="btn btn-primary btn-sm" >
 							<button type="button" ng-click="ctrl.reset()"
 								class="btn btn-warning btn-sm" ng-disabled="actorForm.$pristine">Reset
 								Form</button>

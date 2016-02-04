@@ -28,7 +28,7 @@ App.factory('ActorService', [
 				},
 				
 				createFilmActor : function(actorId, filmId) {
-					return $http.post('http://localhost:8080/film/'+filmId+'/addactor/'+actorId)
+					return $http.get('http://localhost:8080/film/'+filmId+'/addactor/'+actorId)
 					.then(function(response) {
 						return response.data;
 					}, function(errResponse) {

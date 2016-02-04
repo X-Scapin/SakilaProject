@@ -122,8 +122,9 @@ App.controller('FilmController', [
 				self.reset();
 			};
 			
-			self.submitActor = function() {
-				ActorService.createFilmActor(self.filmActor.actorId, self.film.filmId).then(function(d){
+			self.submitActors = function(film) {
+				ActorService.createFilmActor(self.filmActor.actorId, film.filmId).then(function(d){
+					self.getFilmActors(film);
 					console.log("FilmActor created");
 				}, function (errResponse) {
 					console.error('Error while creating film');
