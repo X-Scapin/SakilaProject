@@ -21,6 +21,8 @@ App.controller('FilmController', [
 			};
 			self.films = [];
 			self.languages = [];
+			self.actors = [];
+			self.categories = [];
 			
 			self.fetchAllFilms = function() {
 				FilmService.fetchAllFilms().then(function(d) {
@@ -28,6 +30,22 @@ App.controller('FilmController', [
 					self.fetchAllLanguages();
 				}, function (errResponse) {
 					console.error('Error while fetching films');
+				});
+			};
+			
+			self.fetchAllActors = function() {
+				ActorService.fetchAllActors().then(function(d) {
+					self.actors = d;
+				}, function (errResponse) {
+					console.error('Error while fetching actors');
+				});
+			};
+			
+			self.fetchAllCategories = function() {
+				CategoryService.fetchAllCategory().then(function(d) {
+					self.categories = d;
+				}, function (errResponse) {
+					console.error('Error while fetching categories');
 				});
 			};
 			
@@ -71,6 +89,8 @@ App.controller('FilmController', [
 			};
 			
 			self.fetchAllFilms();
+			self.fetchAllActors();
+			self.fetchAllCategories();
 			
 			//TODO
 			/*
