@@ -14,5 +14,11 @@ public interface FilmService {
 	void deleteFilmById(int id);
 
 	List<FilmWO> findAllFilms();
+	
+	void addCategory(int id, byte categoryId);
+	void removeCategory(int id, byte categoryId);
+	
+	void addActor(int id, int actorId);
+	void removeActor(int id, int actorId);
 
 }
