@@ -31,6 +31,25 @@
 <link href="css/app.css" rel="stylesheet"></link>
 </head>
 <body ng-app="myApp" class="ng-cloak">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="home">Sakila</a>
+			</div>
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="CustomerManagement.html">Customer</a></li>
+					<li><a href="ActorManagement.html">Actor</a></li>
+					<li><a href="FilmManagement.html">Film</a></li>
+					<li><a href="InventoryManagement.html">Inventory</a></li>
+				</ul>
+				<form th:action="@{/logout}" method="post" class="navbar-form navbar-right">
+					<input type="submit" value="Sign Out" class="btn btn-default"/>
+				</form>
+			</div>
+		</div>
+	</nav>
 	<div class="generic-container" ng-controller="CustomerController as ctrl">
 		<div class="panel panel-default">
 			<div class="panel-heading">
