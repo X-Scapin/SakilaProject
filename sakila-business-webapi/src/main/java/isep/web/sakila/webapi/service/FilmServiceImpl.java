@@ -10,10 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import isep.web.sakila.dao.repositories.ActorRepository;
+import isep.web.sakila.dao.repositories.CategoryRepository;
 import isep.web.sakila.dao.repositories.FilmActorRepository;
 import isep.web.sakila.dao.repositories.FilmCategoryRepository;
 import isep.web.sakila.dao.repositories.FilmRepository;
 import isep.web.sakila.dao.repositories.LanguageRepository;
+import isep.web.sakila.jpa.entities.Actor;
+import isep.web.sakila.jpa.entities.Category;
 import isep.web.sakila.jpa.entities.Film;
 import isep.web.sakila.jpa.entities.FilmActor;
 import isep.web.sakila.jpa.entities.FilmCategory;
@@ -35,6 +39,12 @@ public class FilmServiceImpl implements FilmService {
 	
 	@Autowired
 	private FilmCategoryRepository filmCategoryRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
+
+	@Autowired
+	private ActorRepository actorRepository;
 	
 	@Autowired
 	private InventoryService inventoryService;
@@ -102,5 +112,61 @@ public class FilmServiceImpl implements FilmService {
 			inventoryService.deleteInventoryById(i.getInventoryId());
 		}
 		filmRepository.delete(id);
+	}
+
+	@Override
+	public void addCategory(int id, byte categoryId) {
+		Film film = filmRepository.findOne(id);
+		Category category = categoryRepository.findOne(categoryId);
+		if(film!=null && category!=null){
+			FilmCategory filmCat = new FilmCategory();
+			filmCat.setCategory(category);
+			filmCat.setFilm(film);
+			film.addFilmCategory(filmCat);
+			filmCategoryRepository.save(filmCat);
+			filmRepository.save(film);
+		}
+	}
+
+	@Override
+	public void removeCategory(int id, byte categoryId) {
+		Film film = filmRepository.findOne(id);
+		Category category = categoryRepository.findOne(categoryId);
+		if(film!=null && category!=null)
+			for(FilmCategory filmCategory : new LinkedList<FilmCategory>(film.getFilmCategories())){
+				if(filmCategory.getCategory()==category){
+					film.removeFilmCategory(filmCategory);
+					filmCategoryRepository.delete(filmCategory);
+					filmRepository.save(film);
+				}
+			}
+	}
+
+	@Override
+	public void addActor(int id, int actorId) {
+		Film film = filmRepository.findOne(id);
+		Actor actor = actorRepository.findOne(actorId);
+		if(film!=null && actor!=null){
+			FilmActor filmCat = new FilmActor();
+			filmCat.setActor(actor);
+			filmCat.setFilm(film);
+			film.addFilmActor(filmCat);
+			filmActorRepository.save(filmCat);
+			filmRepository.save(film);
+		}
+	}
+
+	@Override
+	public void removeActor(int id, int actorId) {
+		Film film = filmRepository.findOne(id);
+		Actor actor = actorRepository.findOne(actorId);
+		if(film!=null && actor!=null)
+			for(FilmActor filmActor : new LinkedList<FilmActor>(film.getFilmActors())){
+				if(filmActor.getActor()==actor){
+					film.removeFilmActor(filmActor);
+					filmActorRepository.delete(filmActor);
+					filmRepository.save(film);
+				}
+			}
 	}
 }

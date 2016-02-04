@@ -88,4 +88,29 @@ public class FilmRestController {
 		filmService.deleteFilmById(id);
 		return new ResponseEntity<FilmWO>(HttpStatus.NO_CONTENT);
 	}
+	
+	@RequestMapping(value = "/film/{id}/addcategory/{categoryId}", method = RequestMethod.GET)
+	public ResponseEntity<FilmWO> addCategory(@PathVariable("id") int id,@PathVariable("categoryId") byte categoryId) {
+		filmService.addCategory(id, categoryId);
+		return new ResponseEntity<FilmWO>(HttpStatus.NO_CONTENT);
+	}
+	
+	@RequestMapping(value = "/film/{id}/removecategory/{categoryId}", method = RequestMethod.GET)
+	public ResponseEntity<FilmWO> removeCategory(@PathVariable("id") int id,@PathVariable("categoryId") byte categoryId) {
+		filmService.removeCategory(id, categoryId);
+		return new ResponseEntity<FilmWO>(HttpStatus.NO_CONTENT);
+	}
+	
+	
+	@RequestMapping(value = "/film/{id}/addactor/{actorId}", method = RequestMethod.GET)
+	public ResponseEntity<FilmWO> addActor(@PathVariable("id") int id,@PathVariable("actorId") int actorId) {
+		filmService.addActor(id, actorId);
+		return new ResponseEntity<FilmWO>(HttpStatus.NO_CONTENT);
+	}
+	
+	@RequestMapping(value = "/film/{id}/removeactor/{actorId}", method = RequestMethod.GET)
+	public ResponseEntity<FilmWO> removeActor(@PathVariable("id") int id,@PathVariable("actorId") int actorId) {
+		filmService.removeActor(id, actorId);
+		return new ResponseEntity<FilmWO>(HttpStatus.NO_CONTENT);
+	}
 }
