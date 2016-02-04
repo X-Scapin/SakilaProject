@@ -117,6 +117,7 @@ App.controller('CustomerController', [
 					self.updateCustomer(self.customer);
 				}
 				self.reset();
+				self.fetchAllCustomers();
 			};
 
 			self.edit = function(customerId, addressId) {

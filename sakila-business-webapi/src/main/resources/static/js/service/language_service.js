@@ -17,6 +17,16 @@ App.factory('LanguageService', [
 							});
 				},
 
+				getLanguage : function(languageId) {
+					return $http.get('http://localhost:8080/language/'+languageId)
+						.then(function(response) {
+							return response.data;
+						}, function(errResponse) {
+							console.error('Error while getting language');
+							return $q.reject(errResponse);
+						});
+				},
+				
 				createLanguage : function(language) {
 					return $http.post('http://localhost:8080/language/', language)
 							.then(function(response) {

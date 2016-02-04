@@ -16,6 +16,8 @@ App.factory('CategoryService', [
 								return $q.reject(errResponse);
 							});
 				},
+				
+				
 
 				createCategory : function(category) {
 					return $http.post('http://localhost:8080/category/', category)
@@ -45,6 +47,17 @@ App.factory('CategoryService', [
 								return response.data;
 							}, function(errResponse) {
 								console.error('Error while deleting category');
+								return $q.reject(errResponse);
+							});
+				},
+				
+				getFilmCategories : function(filmId) {
+					return $http.get(
+							'http://localhost:8080/category/film/' + filmId)
+							.then(function(response) {
+								return response.data;
+							}, function(errResponse) {
+								console.error('Error while getting film categories');
 								return $q.reject(errResponse);
 							});
 				}

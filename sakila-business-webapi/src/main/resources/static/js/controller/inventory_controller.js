@@ -68,7 +68,6 @@ App.controller('InventoryController', [
 			self.addInventory = function(film) {
 				console.log('Inventory to be add for film : ', film);
 				film.quantity++;
-				// TODO
 				var currentFilm = {film: film.filmId, store: 1};
 				InventoryService.createInventory(currentFilm).then(function(){
 							self.checkInventories();
