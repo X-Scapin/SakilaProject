@@ -26,6 +26,16 @@ App.factory('ActorService', [
 								return $q.reject(errResponse);
 							});
 				},
+				
+				createFilmActor : function(actorId, filmId) {
+					return $http.post('http://localhost:8080/film/'+filmId+'/addactor/'+actorId)
+					.then(function(response) {
+						return response.data;
+					}, function(errResponse) {
+						console.error('Error while creating film');
+						return $q.reject(errResponse);
+					});
+				},
 
 				updateActor : function(actor, actorId) {
 					console.log("XXX", actor);

@@ -1,5 +1,6 @@
 package isep.web.sakila.webapi.service;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -69,6 +70,8 @@ public class FilmServiceImpl implements FilmService {
 		film.setDescription(filmWO.getDescription());
 		film.setRentalDuration(filmWO.getRentalDuration());
 		film.setReplacementCost(filmWO.getReplaCost());
+		film.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+		film.setRentalRate(new BigDecimal(1));
 		
 		Language language = languageRepository.findOne(filmWO.getLanguage_id());
 		if(language !=null){

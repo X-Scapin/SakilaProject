@@ -38,9 +38,8 @@ App.factory('FilmService', [
 				},
 
 				updateFilm : function(film, filmId) {
-					console.log("XXX", film);
 					return $http.post('http://localhost:8080/filmUpdate/',
-							actor).then(function(response) {
+							film).then(function(response) {
 						return response.data;
 					}, function(errResponse) {
 						console.error('Error while updating film');
