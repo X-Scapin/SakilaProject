@@ -52,6 +52,10 @@ App.controller('InventoryController', [
 					InventoryService.getInventoriesByFilm(film.filmId).then(
 							function(d) {
 								film.quantity = d.length;
+								film.inventoriesId = [];
+								angular.forEach(d, function(inventory, key) {
+										film.inventoriesId.push(inventory.inventoryId);
+									});
 							},
 							function(errResponse) {
 						console.error('Error while getting Inventories by film');
@@ -63,21 +67,30 @@ App.controller('InventoryController', [
 			
 			self.addInventory = function(film) {
 				console.log('Inventory to be add for film : ', film);
-//				film.quantity++;
+				film.quantity++;
 				// TODO
 				var currentFilm = {film: film.filmId, store: 1};
 				InventoryService.createInventory(currentFilm).then(function(){
 							self.checkInventories();
 						},
 						function(err){
-//							film.quantity--;
+							film.quantity--;
 							console.log("error adding inventory");
 						}
 				)
 			};
 
-			self.remove = function(inventoryId) {
-				
+			self.remove = function(film) {
+				console.log('Remove inventory with id : ', film.inventoriesId[0]);
+				film.quantity--;
+				InventoryService.deleteInventory(film.inventoriesId[0]).then(function(){
+							self.checkInventories();
+						},
+						function(err){
+							film.quantity++;
+							console.log("error adding inventory");
+						}
+				)
 			};
 			
 		} ]);
